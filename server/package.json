@@ -1,0 +1,32 @@
+{
+  "name": "nexus-codes-educational-platform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "Start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://your-github-token@github.com/Architmaurya/Nexus-Codes-Educational-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Architmaurya/Nexus-Codes-Educational-Platform/issues"
+  },
+  "homepage": "https://github.com/Architmaurya/Nexus-Codes-Educational-Platform#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.1",
+    "nodemailer": "^6.10.0",
+    "nodemon": "^3.1.9",
+    "otp-generator": "^4.0.1"
+  }
+}
