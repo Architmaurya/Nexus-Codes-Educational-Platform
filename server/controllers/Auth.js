@@ -2,7 +2,8 @@ const User =require("../models/User");
 const Otp=require("../models/Otp");
 const otpGenerator=require("otp-generator")
 const bcryt=require("bcrypt");
-
+const jwt = require("jsonwebtoken")
+require("dotenv").config();
 
 
 //send Otp
@@ -191,13 +192,75 @@ exports.login=async(req,res)=>{
         //user check exist or not
 
         const user =await User.findOne({email}).populate("additionalDetails");
-
-
+        if(!user){
+            return res.status(401).json({
+                success:false,
+                message:"User is not registrered , Please signup first",
+            });
+        }
         //generate token(JWT)after matching the password
 
+        if(await bcryt.compare(password,user.password))
+        {
 
-        //create cookie and send response
+            const payload={
+                email:user.email,
+                id:user._id,
+                accountType:user.accountType,
+            }
+            const token=jwt.sign(payload ,process.env.JWT_SECRET,{
+                expiresIn:"2hr",
+            })
+            user.token=token;
+            user.password=undefined;
+
+      //create cookie and send response
+            const options={
+            expires: new Date(Date.now()+3*34*60*60*1000),
+            httpOnly:true
+            }
+            res.cookie("token",token,options).status(200).json({
+            success:true,
+            token,
+            user,
+            message:"logged in successfully",
+            })
+
+        }
+        else{
+            return res.status(401).json({
+                success:false,
+                message:"Password is incorrect",
+            });
+        }
+     
     } catch (error) {
-        
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:"Login Failure ,Please try again",
+        })
     }
 };
+
+//ChangePassword
+
+exports.changePassword =async(req,res)=>{
+    //get data from the req body
+
+
+    //get olg password ,newPassword ,confirmNew password
+
+
+    //validaion
+
+
+    // update pwd in DB
+
+
+    //send mail -Password update
+
+
+
+    //return response
+}
