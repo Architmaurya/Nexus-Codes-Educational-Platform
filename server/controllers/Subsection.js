@@ -1,4 +1,4 @@
-const subsection=require("../models/SubSection");
+// const subsection=require("../models/SubSection");
 const Section =require("../models/Section");
 const { uploadImageToCloundinary } = require("../utils/imageUploader");
 const SubSection = require("../models/SubSection");
@@ -35,7 +35,7 @@ exports.createSubsection=async(req,res)=>{
                     subsection:SubSectionDetails._id,
                 }
             },{new:true}
-        )
+        ).populate("subSection")
         //log update section here after adding populate query
         //return res
         return res.status(200).json({
