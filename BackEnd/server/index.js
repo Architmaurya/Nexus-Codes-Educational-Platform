@@ -25,12 +25,18 @@ database.connect();
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-	cors({
-		origin: "*",
-		credentials: true,
-	})
-);
+// app.use(
+// 	cors({
+// 		origin: "*",
+// 		credentials: true,
+// 	})
+// );
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'https://nexus-codes-educational-platform.vercel.app', // allow Vercel frontend
+  credentials: true, // if you're using cookies or authorization headers
+}));
 app.use(
 	fileUpload({
 		useTempFiles: true,
